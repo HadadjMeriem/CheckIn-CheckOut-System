@@ -1,0 +1,37 @@
+{
+  "development": {
+    "username": "employee_9em1_user",
+    "password": "RNgmDPp66YqFBmhChCu3ondAfh53jpJ2",
+    "database": "employee_9em1",
+    "host": "dpg-cl0l9c3jdq6s738cf5pg-a.oregon-postgres.render.com",
+    "dialect": "postgres",
+    "ssl": true, 
+     "dialectOptions": {
+    "ssl": {
+      "require": true,
+      "rejectUnauthorized": false 
+    }
+  }
+  },
+  "test": {
+    "username": "employee_9em1_user",
+    "password": "RNgmDPp66YqFBmhChCu3ondAfh53jpJ2",
+    "database": "employee_9em1",
+    "host": "dpg-cl0l9c3jdq6s738cf5pg-a.oregon-postgres.render.com",
+    "dialect": "postgres",
+    "ssl": true, 
+     "dialectOptions": {
+    "ssl": {
+      "require": true,
+      "rejectUnauthorized": false 
+    }
+  }
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}
