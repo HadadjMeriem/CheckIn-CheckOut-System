@@ -1,0 +1,77 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "CheckIn-CheckOut API",
+    "version": "1.0.0",
+    "description": "API documentation"
+  },
+  "basePath": "/",
+  "paths": {
+    "/api/endpoint": {
+      "post": {
+        "summary": "fetch a user",
+        "description": "perform the checkOut operation",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "lastName": {
+                    "type": "string"
+                  },
+                  "firstName": {
+                    "type": "string"
+                  },
+                  "department": {
+                    "type": "string"
+                  },
+                  "date": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "firstName": {
+                      "type": "string"
+                    },
+                    "lastName": {
+                      "type": "string"
+                    },
+                    "department": {
+                      "type": "string"
+                    },
+                    "dateCreated": {
+                      "type": "DATE"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request ( if there is no correspond checkIn in the same day.)"
+          },
+          "402": {
+            "description": "Employee exists in the database."
+          }
+        }
+      }
+    }
+  },
+  "components": {},
+  "tags": []
+}

@@ -1,0 +1,12 @@
+# Here are the commands used to run the API
+PROJECT = "CheckIn-CheckOut System project"
+start:
+    npm start
+
+test: ;@echo "Testing ${PROJECT}....."; \
+    npm run test
+
+install:;@echo "Installing ${PROJECT}....."; \
+    npm install
+
+
