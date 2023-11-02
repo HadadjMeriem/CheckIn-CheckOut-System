@@ -29,9 +29,6 @@ The purpose of this project is to create a RESTful API using Node.js to efficien
 - The API's endpoints are documented using Swagger to provide clear and comprehensive documentation for users and developers. 
 
 ## Prerequisites
-
-Node js must be installed. 
-dependencies: 
         "cors": "^2.8.5",
         "date-fns": "^2.30.0",
         "express": "^4.18.1",
