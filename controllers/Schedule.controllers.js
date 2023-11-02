@@ -2,7 +2,6 @@ const db=require("../models")
 const sequelize = require("sequelize");
 const Employee = db.Employee;
 const Schedule=db.Schedule;
-
 // Perform the checkIn 
 exports.checkIn=(req,res)=>{
     Employee.findOne({
@@ -17,16 +16,38 @@ exports.checkIn=(req,res)=>{
 
         }
         else{
-             Schedule.create({
-                checkIn:sequelize.literal('CURRENT_TIMESTAMP'),
-                idEmployee: req.body.employeeId,
-                checkInComment: req.body.comment
-             }          
-             ).then(
-                schedule => {
-                    res.status(201).send(schedule);
+            // we must check that the employee didn't perform a check-in at the actual day
+            // Find the corresponding Schedule record for the employee on the current date
+            const today =new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+            const day = String(today.getDate()).padStart(2, '0');
+            const formattedDate = `${year}-${month}-${day}`;
+           Schedule.findOne({
+                 where: { idEmployee:req.body.employeeId, checkIn: sequelize.literal(`DATE("Schedule"."checkIn") = '${formattedDate}'`) },
+             }).then(
+                scheduleRecord=>{
+                    if (scheduleRecord) {
+                        res.status(400).send({ message: "Check-in already performed today." })
+                  }
+                  else{
+                     Schedule.create({
+                         checkIn:sequelize.literal('CURRENT_TIMESTAMP'),
+                         idEmployee: req.body.employeeId,
+                         checkInComment: req.body.comment
+                      }          
+                      ).then(
+                         schedule => {
+                             res.status(201).send(schedule);
+                         }
+                     )
+     
+                  }        
+
                 }
-            )             
+             )
+
+               
         }
        }
 
@@ -46,7 +67,9 @@ exports.checkOut=(req,res)=>{
         order: [['checkIn', 'DESC']], // Get the most recent check-in
        
     }).then(
+
         scheduleRecord=>{
+            console.log(scheduleRecord)
             if(!scheduleRecord){
                 res.status(400).send({ message: "No corresponding check-in found." })
             }
